@@ -1,14 +1,15 @@
 import UIKit
 
-final class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource{
-    var picker = UIPickerView()
-    var pickerData = ["one", "two", "share"]
+/// Тренировочный контроле, который ничего не делает. Прост понять как работает UIActivityViewController
+final class TrainingViewController: UIViewController {
+    private var picker = UIPickerView()
+    private var pickerData = ["one", "two", "share"]
     
-    var textField = UITextField()
+    private var textField = UITextField()
     
-    var button = UIButton(type: .system)
+    private var button = UIButton(type: .system)
     
-    var activityController: UIActivityViewController? = nil
+    private var activityController: UIActivityViewController? = nil
     
     // MARK: -Life Cycle
     override func viewDidLoad() {
@@ -16,6 +17,7 @@ final class ViewController: UIViewController, UIPickerViewDelegate, UIPickerView
         setupForPicker()
         setupForTextField()
         setupForButton()
+        view.backgroundColor = .white
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -47,7 +49,7 @@ final class ViewController: UIViewController, UIPickerViewDelegate, UIPickerView
         self.button.addTarget(self, action: #selector(sharedText), for: .touchUpInside)
     }
     
-    @objc func sharedText() {
+    @objc private func sharedText() {
         let text = textField.text
         if text?.count == 0 {
             let alertController = UIAlertController(title: nil, message: "Введите текс", preferredStyle: .alert)
@@ -59,6 +61,9 @@ final class ViewController: UIViewController, UIPickerViewDelegate, UIPickerView
         self.present(activityController!, animated: true)
     }
     
+}
+
+extension TrainingViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
@@ -77,7 +82,4 @@ final class ViewController: UIViewController, UIPickerViewDelegate, UIPickerView
             self.present(activityController!, animated: true)
         }
     }
-    
-    
 }
-
